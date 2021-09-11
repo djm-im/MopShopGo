@@ -20,6 +20,7 @@ func main() {
 	router.HandleFunc("/admin/users", admin.GetAllUsers).Methods("GET")
 	router.HandleFunc("/admin/products/add", admin.AddProduct).Methods("POST")
 	router.HandleFunc("/admin/products/update/{productId}", admin.UpdateProduct).Methods("PUT")
+	router.HandleFunc("/admin/products/upload/image/{productId}", admin.UploadImage).Methods("POST")
 	router.HandleFunc("/admin/products/delete/{productId}", admin.DeleteProduct).Methods("DELETE")
 	router.HandleFunc("/admin/products/statistics", admin.ProductStatistics).Methods("GET")
 	router.HandleFunc("/admin/products/statistics/{productId}", admin.ProductStatistics).Methods("GET")
@@ -31,7 +32,7 @@ func main() {
 	router.HandleFunc("/user/logout", users.Logout).Methods("POST")
 
 	// products
-	router.HandleFunc("/products/getAll", products.GetAll).Methods("GET")
+	router.HandleFunc("/products/all", products.GetAll).Methods("GET")
 	router.HandleFunc("/products/get/{productId}", products.GetProduct).Methods("GET")
 
 	// cart

@@ -14,7 +14,11 @@ func AddProduct(response http.ResponseWriter, request *http.Request) {
 }
 
 func UpdateProduct(response http.ResponseWriter, request *http.Request) {
+	exceptions.FuncNotImplemented(response)
+}
 
+func UploadImage(response http.ResponseWriter, request *http.Request) {
+	exceptions.FuncNotImplemented(response)
 }
 
 func DeleteProduct(response http.ResponseWriter, request *http.Request) {
