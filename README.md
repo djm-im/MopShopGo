@@ -19,6 +19,7 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] 
 - [x] `v0.3` Convert indents in code
   - Use spaces instead tabs
 - [x] `v0.2` Added mock Products Repository
