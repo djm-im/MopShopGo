@@ -9,14 +9,7 @@ import (
 )
 
 func GetAllUsers(response http.ResponseWriter, request *http.Request) {
-    username, password, ok := request.BasicAuth()
-
-    if !ok {
-        exceptions.UnauthorizedResponse(&response)
-        return
-    }
-
-    if username != "admin" || password != "admin123" {
+    if !isAuthorized(request) {
         exceptions.UnauthorizedResponse(&response)
         return
     }
@@ -29,19 +22,13 @@ func GetAllUsers(response http.ResponseWriter, request *http.Request) {
     }
 
     response.Header().Set("Content-Type", "application/json")
-    _ = json.NewEncoder(response).Encode(allUsers)
+    response.WriteHeader(http.StatusOK)
 
+    _ = json.NewEncoder(response).Encode(allUsers)
 }
 
 func AddProduct(response http.ResponseWriter, request *http.Request) {
-    username, password, ok := request.BasicAuth()
-
-    if !ok {
-        exceptions.UnauthorizedResponse(&response)
-        return
-    }
-
-    if username != "admin" || password != "admin123" {
+    if !isAuthorized(request) {
         exceptions.UnauthorizedResponse(&response)
         return
     }
@@ -50,16 +37,15 @@ func AddProduct(response http.ResponseWriter, request *http.Request) {
     var newProduct products.Product
     err := decoder.Decode(&newProduct)
 
-    acceptable := http.StatusNotAcceptable
     if err != nil {
-        exceptions.BuildErrorResponse(&response, acceptable, err.Error())
+        exceptions.BuildErrorResponse(&response, http.StatusNotAcceptable, err.Error())
         return
     }
 
     product, err := products.AddProduct(newProduct)
 
     if err != nil {
-        exceptions.BuildErrorResponse(&response, acceptable, err.Error())
+        exceptions.BuildErrorResponse(&response, http.StatusNotAcceptable, err.Error())
         return
     }
 
@@ -67,6 +53,20 @@ func AddProduct(response http.ResponseWriter, request *http.Request) {
     response.WriteHeader(http.StatusCreated)
 
     _ = json.NewEncoder(response).Encode(product)
+}
+
+func isAuthorized(request *http.Request) bool {
+    username, password, ok := request.BasicAuth()
+
+    if !ok {
+        return false
+    }
+
+    if username != "admin" || password != "admin123" {
+        return false
+    }
+
+    return true
 }
 
 func UpdateProduct(response http.ResponseWriter, request *http.Request) {
