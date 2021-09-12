@@ -37,6 +37,7 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.6.4` Basic Auth - parameters as constants
 - [x] `v0.6.3` DRY - Admin service
     - Repeating code for checking basic authentication extracted into a func
 - [x] `v0.6.2` Parametrized repository

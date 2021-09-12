@@ -36,6 +36,5 @@ func GetProduct(response http.ResponseWriter, request *http.Request) {
 }
 
 func AddProduct(product Product) (Product, error) {
-    // todo: validate that `product.price` is greater than zero
     return addProduct(product)
 }

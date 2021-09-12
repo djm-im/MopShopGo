@@ -8,6 +8,11 @@ import (
     "net/http"
 )
 
+const (
+    basicAuthUser = "admin"
+    basicAuthPass = "admin123"
+)
+
 func GetAllUsers(response http.ResponseWriter, request *http.Request) {
     if !isAuthorized(request) {
         exceptions.UnauthorizedResponse(&response)
@@ -62,7 +67,7 @@ func isAuthorized(request *http.Request) bool {
         return false
     }
 
-    if username != "admin" || password != "admin123" {
+    if username != basicAuthUser || password != basicAuthPass {
         return false
     }
 
