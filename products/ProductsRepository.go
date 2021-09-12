@@ -8,11 +8,11 @@ import (
 )
 
 type Repository struct {
-    Database *sql.DB
+    database *sql.DB
 }
 
 var mysqlDatabase = Repository{
-    Database: connectDb(),
+    database: connectDb(),
 }
 
 func connectDb() *sql.DB {
@@ -26,7 +26,7 @@ func connectDb() *sql.DB {
 }
 
 func getAllProducts() ([]Product, error) {
-    result, err := mysqlDatabase.Database.Query("" +
+    result, err := mysqlDatabase.database.Query("" +
         "SELECT * " +
         "FROM products")
     defer result.Close()
@@ -55,7 +55,7 @@ func getAllProducts() ([]Product, error) {
 }
 
 func getProduct(productId int) (Product, error) {
-    result, err := mysqlDatabase.Database.Query(""+
+    result, err := mysqlDatabase.database.Query(""+
         "SELECT * "+
         "FROM products "+
         "WHERE id = ?", productId)
@@ -79,4 +79,21 @@ func getProduct(productId int) (Product, error) {
     }
 
     return Product{}, fmt.Errorf("Cannot find a product with id %d.", productId)
+}
+
+func addProduct(product Product) (Product, error) {
+    exec, err := mysqlDatabase.database.Exec(""+
+        "INSERT INTO products"+
+        "   (name, imageUrl, description, price)"+
+        "   VALUE"+
+        "   (?, ?, ?, ?)",
+        product.Name, product.ImageUrl, product.Description, product.Price)
+    if err != nil {
+        return Product{}, err
+    }
+
+    id, _ := exec.LastInsertId()
+    product.Id = id
+
+    return product, nil
 }

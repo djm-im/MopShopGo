@@ -11,10 +11,18 @@ For testing open Postman and import endpoints.
 **Assumptions**
 
 * Endless supply of products. That means no limit on the number of products.
+* The project contains hard-coded values for path variables and passwords.  
+  This style is terrible for leas two reasons—the first, security.  
+  The second reason, it is not flexible and configurable.  
+  This trade-off was made for the sake of faster development.
+* The field `Product.Name` is chosen to be a unique value.  
+  However, a better approach is to have a product code and set it as a unique value.  
+  This trade-off is made because of simplicity.
 
-**Improvement**
+**Improvements**
 
 * Database migration tool (like Java FlywayDb)
+* Add search of products by different fields
 
 #### Build and run the project
 
@@ -27,6 +35,8 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.5` Admin: WIP 
+    - WIP
 - [x] `v0.4` Get products from database
     - Read data from database (supported only reading of products)
 - [x] `v0.3` Convert indents in code
@@ -42,10 +52,14 @@ For testing open Postman and import endpoints.
 ### TODO
 
 - [ ] Add admin for create, delete, and update products
+- [ ] Admin/Products delete
+- [ ] Admin/Products update
+- [ ] Admin/Products enable image upload
+- [ ] Products, add a new product - price have to be greater than zero
+- [ ] Admin/Products when insert a new product chek is name a unique value (currently returns MySQL `Error 1062: Duplicate entry`)
 - [ ] Add MySql Docker container
 - [ ] Add a Postman collection
 - [ ] Add link to MySql container repository
-- [ ] Add service methods
 - [ ] Add tests (unit and integration tests)
 - [ ] Move the project into a Docker container
 

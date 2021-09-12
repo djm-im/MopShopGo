@@ -2,7 +2,7 @@ package products
 
 import (
     "MopShopGo/exceptions"
-    json "encoding/json"
+    "encoding/json"
     "github.com/gorilla/mux"
     "net/http"
     "strconv"
@@ -47,4 +47,9 @@ func GetProduct(response http.ResponseWriter, request *http.Request) {
 
     response.Header().Set("Content-Type", "application/json")
     _ = json.NewEncoder(response).Encode(product)
+}
+
+func AddProduct(product Product) (Product, error) {
+    // todo: validate that `product.price` is greater than zero
+    return addProduct(product)
 }
