@@ -3,12 +3,34 @@ package admin
 import (
     "MopShopGo/exceptions"
     "MopShopGo/products"
+    "MopShopGo/users"
     "encoding/json"
     "net/http"
 )
 
 func GetAllUsers(response http.ResponseWriter, request *http.Request) {
-    exceptions.FuncNotImplemented(response)
+    username, password, ok := request.BasicAuth()
+
+    if !ok {
+        exceptions.UnauthorizedResponse(&response)
+        return
+    }
+
+    if username != "admin" || password != "admin123" {
+        exceptions.UnauthorizedResponse(&response)
+        return
+    }
+
+    allUsers, err := users.GetAllUsers()
+
+    if err != nil {
+        exceptions.BuildErrorResponse(&response, http.StatusNotFound, err.Error())
+        return
+    }
+
+    response.Header().Set("Content-Type", "application/json")
+    _ = json.NewEncoder(response).Encode(allUsers)
+
 }
 
 func AddProduct(response http.ResponseWriter, request *http.Request) {

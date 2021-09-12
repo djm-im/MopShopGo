@@ -23,6 +23,7 @@ For testing open Postman and import endpoints.
 
 * Database migration tool (like Java FlywayDb)
 * Add search of products by different fields
+* Add roles for users - Admin and User (customer)
 * Better logging - more log messages, and more details.
 
 #### Build and run the project
@@ -36,6 +37,9 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.6` User signup  
+    - Implemented user signup endpoint
+    - Admin panel - fetch all users
 - [x] `v0.5.2` Admin added response for Unauthorized requests
 - [x] `v0.5.1` DRY refactoring
     - Extracted a method for building responses with error
@@ -55,7 +59,7 @@ For testing open Postman and import endpoints.
 
 ### Backlog (Todo list)
 
-- [ ] User register
+- [ ] Postman parametrize requests
 - [ ] User login
 - [ ] User creates a new cart
 - [ ] Add admin for create, delete, and update products
