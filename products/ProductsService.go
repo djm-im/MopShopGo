@@ -9,7 +9,19 @@ import (
 )
 
 func GetAll(response http.ResponseWriter, request *http.Request) {
-    products := getAllProducts()
+    products, err := getAllProducts()
+
+    if err != nil {
+        response.Header().Set("Content-Type", "application/json")
+        response.WriteHeader(http.StatusInternalServerError)
+
+        exceptions.ErrorResponse(
+            &response,
+            http.StatusInternalServerError,
+            err.Error())
+
+        return
+    }
 
     response.Header().Set("Content-Type", "application/json")
     _ = json.NewEncoder(response).Encode(products)
@@ -28,7 +40,7 @@ func GetProduct(response http.ResponseWriter, request *http.Request) {
         exceptions.ErrorResponse(
             &response,
             http.StatusNotFound,
-            "Cannot fina a product with ID: "+strconv.Itoa(productId))
+            err.Error())
 
         return
     }

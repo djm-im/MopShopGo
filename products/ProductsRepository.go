@@ -1,48 +1,82 @@
 package products
 
-import "errors"
+import (
+	"database/sql"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"log"
+)
 
-type ProductRepository struct {
-    ProductsDb []Product
+type Repository struct {
+	Database *sql.DB
 }
 
-// todo: mock database -- replace with a real db instance
-var db = ProductRepository{
-    ProductsDb: []Product{
-        {
-            Id:          1,
-            Name:        "T-Shirt",
-            ImageUrl:    "https://i.stack.imgur.com/GNhxO.png",
-            Description: "Just another t-shirt",
-            Price:       10.99,
-        },
-        {
-            Id:          2,
-            Name:        "Jacket",
-            ImageUrl:    "https://i.stack.imgur.com/GNhxO.png",
-            Description: "A jacket",
-            Price:       12.99,
-        },
-        {
-            Id:          3,
-            Name:        "Shoes",
-            ImageUrl:    "https://i.stack.imgur.com/GNhxO.png",
-            Description: "White Snickers",
-            Price:       99.99,
-        }},
+var mysqlDatabase = Repository{
+	Database: connectDb(),
 }
 
-func getAllProducts() []Product {
-    products := db.ProductsDb
+func connectDb() *sql.DB {
+	database, err := sql.Open("mysql", "root:password@tcp(127.0.0.1:3306)/schema_MopShop")
 
-    return products
+	if err != nil {
+		log.Fatalf("Cannot conntect to database. Terminated.")
+	}
+
+	return database
+}
+
+func getAllProducts() ([]Product, error) {
+	result, err := mysqlDatabase.Database.Query("" +
+		"SELECT * " +
+		"FROM products")
+	defer result.Close()
+
+	if err != nil {
+		log.Printf("Cannot read data from database.")
+
+		return []Product{}, err
+	}
+
+	var products []Product
+	for result.Next() {
+		var product Product
+		err = result.Scan(&product.Id, &product.Name, &product.ImageUrl, &product.Description, &product.Price)
+
+		if err != nil {
+			log.Printf("Exception %s ", err.Error())
+
+			return []Product{}, err
+		}
+
+		products = append(products, product)
+	}
+
+	return products, nil
 }
 
 func getProduct(productId int) (Product, error) {
-    for _, product := range db.ProductsDb {
-        if product.Id == productId {
-            return product, nil
-        }
-    }
-    return Product{}, errors.New("not found product")
+	result, err := mysqlDatabase.Database.Query(""+
+		"SELECT * "+
+		"FROM products "+
+		"WHERE id = ?", productId)
+	defer result.Close()
+
+	if err != nil {
+
+	}
+
+	if result.Next() {
+		var product Product
+		err = result.Scan(&product.Id, &product.Name, &product.ImageUrl, &product.Description, &product.Price)
+
+		if err != nil {
+			log.Printf("Exception %s ", err.Error())
+
+			return Product{}, err
+		}
+
+		return product, nil
+	}
+
+	return Product{}, fmt.Errorf("Cannot find a product with id %d.", productId)
 }
