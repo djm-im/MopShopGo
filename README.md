@@ -37,6 +37,8 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.6.1` DRY Repository
+    - Make connection to database through a single point
 - [x] `v0.6` User signup  
     - Implemented user signup endpoint
     - Admin panel - fetch all users
@@ -60,6 +62,7 @@ For testing open Postman and import endpoints.
 ### Backlog (Todo list)
 
 - [ ] Postman parametrize requests
+- [ ] Implement func that check does exist user with email
 - [ ] User login
 - [ ] User creates a new cart
 - [ ] Add admin for create, delete, and update products

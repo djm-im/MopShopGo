@@ -1,30 +1,12 @@
 package users
 
 import (
-    "database/sql"
+    "MopShopGo/repository"
     "log"
 )
 
-type Repository struct {
-    database *sql.DB
-}
-
-var mysqlDatabase = Repository{
-    database: connectDb(),
-}
-
-func connectDb() *sql.DB {
-    database, err := sql.Open("mysql", "root:password@tcp(127.0.0.1:3306)/schema_MopShop")
-
-    if err != nil {
-        log.Fatalf("Cannot conntect to database. Terminated.")
-    }
-
-    return database
-}
-
 func getAllUsers() ([]UserDetails, error) {
-    result, err := mysqlDatabase.database.Query("" +
+    result, err := repository.GetMysql().Query("" +
         "SELECT * " +
         "FROM users")
     defer result.Close()
@@ -67,7 +49,7 @@ func doesExistUser(email string) bool {
 }
 
 func signup(userDatabase UserDatabase) (UserDetails, error) {
-    result, err := mysqlDatabase.database.Exec(""+
+    result, err := repository.GetMysql().Exec(""+
         "INSERT INTO users "+
         "   (email, passwordHash)"+
         "   VALUE"+

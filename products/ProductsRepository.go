@@ -1,32 +1,13 @@
 package products
 
 import (
-    "database/sql"
+    "MopShopGo/repository"
     "fmt"
-    _ "github.com/go-sql-driver/mysql"
     "log"
 )
 
-type Repository struct {
-    database *sql.DB
-}
-
-var mysqlDatabase = Repository{
-    database: connectDb(),
-}
-
-func connectDb() *sql.DB {
-    database, err := sql.Open("mysql", "root:password@tcp(127.0.0.1:3306)/schema_MopShop")
-
-    if err != nil {
-        log.Fatalf("Cannot conntect to database. Terminated.")
-    }
-
-    return database
-}
-
 func getAllProducts() ([]Product, error) {
-    result, err := mysqlDatabase.database.Query("" +
+    result, err := repository.GetMysql().Query("" +
         "SELECT * " +
         "FROM products")
     defer result.Close()
@@ -55,7 +36,7 @@ func getAllProducts() ([]Product, error) {
 }
 
 func getProduct(productId int) (Product, error) {
-    result, err := mysqlDatabase.database.Query(""+
+    result, err := repository.GetMysql().Query(""+
         "SELECT * "+
         "FROM products "+
         "WHERE id = ?", productId)
@@ -82,7 +63,7 @@ func getProduct(productId int) (Product, error) {
 }
 
 func addProduct(product Product) (Product, error) {
-    exec, err := mysqlDatabase.database.Exec(""+
+    exec, err := repository.GetMysql().Exec(""+
         "INSERT INTO products"+
         "   (name, imageUrl, description, price)"+
         "   VALUE"+
