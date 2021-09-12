@@ -37,6 +37,8 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.6.2` Parametrized repository
+    - Added constants with DB credentials (still hard-coded values)
 - [x] `v0.6.1` DRY Repository
     - Make connection to database through a single point
 - [x] `v0.6` User signup  
