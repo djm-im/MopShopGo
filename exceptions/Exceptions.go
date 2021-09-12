@@ -11,11 +11,14 @@ type ErrorMessage struct {
     Message string `json:"message"`
 }
 
-func ErrorResponse(response *http.ResponseWriter, statusCode int, errorMessage string) {
+func BuildErrorResponse(response *http.ResponseWriter, status int, message string) {
     (*response).Header().Set("Content-Type", "application/json")
+    (*response).WriteHeader(status)
 
-    (*response).WriteHeader(statusCode)
+    errorResponse(response, status, message)
+}
 
+func errorResponse(response *http.ResponseWriter, statusCode int, errorMessage string) {
     _ = json.NewEncoder(*response).
         Encode(ErrorMessage{
             Code:    statusCode,

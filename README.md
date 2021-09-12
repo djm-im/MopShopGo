@@ -18,6 +18,7 @@ For testing open Postman and import endpoints.
 * The field `Product.Name` is chosen to be a unique value.  
   However, a better approach is to have a product code and set it as a unique value.  
   This trade-off is made because of simplicity.
+* Better logging - more details.
 
 **Improvements**
 
@@ -35,8 +36,10 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
-- [x] `v0.5` Admin: WIP 
-    - WIP
+- [x] `v0.5.1` DRY refactoring
+  - Extracted a method for building responses with error
+- [x] `v0.5` Admin Panel
+    - Implemented method for adding products
 - [x] `v0.4` Get products from database
     - Read data from database (supported only reading of products)
 - [x] `v0.3` Convert indents in code
