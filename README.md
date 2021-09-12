@@ -18,12 +18,12 @@ For testing open Postman and import endpoints.
 * The field `Product.Name` is chosen to be a unique value.  
   However, a better approach is to have a product code and set it as a unique value.  
   This trade-off is made because of simplicity.
-* Better logging - more details.
 
 **Improvements**
 
 * Database migration tool (like Java FlywayDb)
 * Add search of products by different fields
+* Better logging - more log messages, and more details.
 
 #### Build and run the project
 
@@ -36,8 +36,9 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.5.2` Admin added response for Unauthorized requests
 - [x] `v0.5.1` DRY refactoring
-  - Extracted a method for building responses with error
+    - Extracted a method for building responses with error
 - [x] `v0.5` Admin Panel
     - Implemented method for adding products
 - [x] `v0.4` Get products from database
@@ -52,14 +53,18 @@ For testing open Postman and import endpoints.
     - Git initialize
     - Git ignore: `.idea` (IDE dir), and `MopShopGo` (binary fine)
 
-### TODO
+### Backlog (Todo list)
 
+- [ ] User register
+- [ ] User login
+- [ ] User creates a new cart
 - [ ] Add admin for create, delete, and update products
 - [ ] Admin/Products delete
 - [ ] Admin/Products update
 - [ ] Admin/Products enable image upload
 - [ ] Products, add a new product - price have to be greater than zero
-- [ ] Admin/Products when insert a new product chek is name a unique value (currently returns MySQL `Error 1062: Duplicate entry`)
+- [ ] Admin/Products when insert a new product chek is name a unique value (currently returns
+  MySQL `Error 1062: Duplicate entry`)
 - [ ] Add MySql Docker container
 - [ ] Add a Postman collection
 - [ ] Add link to MySql container repository

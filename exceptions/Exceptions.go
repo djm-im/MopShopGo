@@ -11,6 +11,14 @@ type ErrorMessage struct {
     Message string `json:"message"`
 }
 
+func UnauthorizedResponse(response *http.ResponseWriter) {
+    (*response).Header().Set("WWW-Authenticate", `Basic realm="MyRealm", charset="UTF-8"`)
+    (*response).Header().Set("Content-Type", "application/json")
+    (*response).WriteHeader(http.StatusUnauthorized)
+
+    BuildErrorResponse(response, http.StatusUnauthorized, "Unauthorized")
+}
+
 func BuildErrorResponse(response *http.ResponseWriter, status int, message string) {
     (*response).Header().Set("Content-Type", "application/json")
     (*response).WriteHeader(status)

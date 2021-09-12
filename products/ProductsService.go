@@ -12,10 +12,7 @@ func GetAll(response http.ResponseWriter, request *http.Request) {
     products, err := getAllProducts()
 
     if err != nil {
-        exceptions.BuildErrorResponse(
-            &response,
-            http.StatusInternalServerError,
-            err.Error())
+        exceptions.BuildErrorResponse(&response, http.StatusInternalServerError, err.Error())
         return
     }
 
@@ -30,10 +27,7 @@ func GetProduct(response http.ResponseWriter, request *http.Request) {
     product, err := getProduct(productId)
 
     if err != nil {
-        exceptions.BuildErrorResponse(
-            &response,
-            http.StatusNotFound,
-            err.Error())
+        exceptions.BuildErrorResponse(&response, http.StatusNotFound, err.Error())
         return
     }
 

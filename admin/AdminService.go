@@ -15,18 +15,12 @@ func AddProduct(response http.ResponseWriter, request *http.Request) {
     username, password, ok := request.BasicAuth()
 
     if !ok {
-        exceptions.BuildErrorResponse(
-            &response,
-            http.StatusForbidden,
-            "No proper authorization")
+        exceptions.UnauthorizedResponse(&response)
         return
     }
 
     if username != "admin" || password != "admin123" {
-        exceptions.BuildErrorResponse(
-            &response,
-            http.StatusForbidden,
-            "Not proper combination of username/password.")
+        exceptions.UnauthorizedResponse(&response)
         return
     }
 
@@ -36,20 +30,14 @@ func AddProduct(response http.ResponseWriter, request *http.Request) {
 
     acceptable := http.StatusNotAcceptable
     if err != nil {
-        exceptions.BuildErrorResponse(
-            &response,
-            acceptable,
-            err.Error())
+        exceptions.BuildErrorResponse(&response, acceptable, err.Error())
         return
     }
 
     product, err := products.AddProduct(newProduct)
 
     if err != nil {
-        exceptions.BuildErrorResponse(
-            &response,
-            acceptable,
-            err.Error())
+        exceptions.BuildErrorResponse(&response, acceptable, err.Error())
         return
     }
 
