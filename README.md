@@ -2,6 +2,7 @@
 
 MoP Shop implementation in GoLang.
 
+Important Note: I don't have a prio
 ### Important notes and assumptions
 
 Before starting this project, it is needed to run the MySQL container.
@@ -25,6 +26,8 @@ For testing open Postman and import endpoints.
 * Add search of products by different fields
 * Add roles for users - Admin and User (customer)
 * Better logging - more log messages, and more details.
+* Add SwaggerUI for endpoints 
+* Split "Service layer" (`*Service.go` files) - it's a combination of Controller and Service layer.
 
 #### Build and run the project
 
@@ -37,6 +40,7 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.6.5` Postman added environment - parametrized requests
 - [x] `v0.6.4` Basic Auth - parameters as constants
 - [x] `v0.6.3` DRY - Admin service
     - Repeating code for checking basic authentication extracted into a func
@@ -66,7 +70,7 @@ For testing open Postman and import endpoints.
 
 ### Backlog (Todo list)
 
-- [ ] Postman parametrize requests
+- [ ] Postman export - collection and environment variables to a repository
 - [ ] Implement func that check does exist user with email
 - [ ] User login
 - [ ] User creates a new cart
@@ -78,7 +82,6 @@ For testing open Postman and import endpoints.
 - [ ] Admin/Products when insert a new product chek is name a unique value (currently returns
   MySQL `Error 1062: Duplicate entry`)
 - [ ] Add MySql Docker container
-- [ ] Add a Postman collection
 - [ ] Add link to MySql container repository
 - [ ] Add tests (unit and integration tests)
 - [ ] Move the project into a Docker container
