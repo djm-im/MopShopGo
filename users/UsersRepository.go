@@ -43,11 +43,6 @@ func mapUserDatabaseToUseridDetails(userDatabase UserDatabase) UserDetails {
     }
 }
 
-func doesExistUser(email string) bool {
-    // todo : add implementation
-    return false
-}
-
 func signup(userDatabase UserDatabase) (UserDetails, error) {
     result, err := repository.GetMysql().Exec(""+
         "INSERT INTO users "+
@@ -65,4 +60,27 @@ func signup(userDatabase UserDatabase) (UserDetails, error) {
     userDatabase.Id = id
 
     return mapUserDatabaseToUseridDetails(userDatabase), nil
+}
+
+func doesExistUser(email string) bool {
+    result, err := repository.GetMysql().Query(""+
+        "SELECT COUNT(*) "+
+        "FROM users "+
+        "WHERE email = ?",
+        email)
+    defer result.Close()
+
+    if err != nil {
+        log.Printf("User reading error %s.", err.Error())
+        return false
+    }
+
+    if result.Next() {
+        var count int
+        _ = result.Scan(&count)
+
+        return count == 1
+    }
+
+    return false
 }
