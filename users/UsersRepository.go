@@ -6,41 +6,32 @@ import (
 )
 
 func getAllUsers() ([]UserDetails, error) {
-    result, err := repository.GetMysql().Query("" +
+    result, err1 := repository.GetMysql().Query("" +
         "SELECT * " +
         "FROM users")
     defer result.Close()
 
-    if err != nil {
-        log.Printf("Cannot read data from database. %s", err.Error())
+    if err1 != nil {
+        log.Printf("Cannot read data from database. %s", err1.Error())
 
-        return []UserDetails{}, err
+        return []UserDetails{}, err1
     }
 
     var users []UserDetails
     for result.Next() {
         var userDatabase UserDatabase
-        err := result.Scan(&userDatabase.Id, &userDatabase.Email, &userDatabase.PasswordHash, &userDatabase.Name, &userDatabase.Address)
+        err2 := result.Scan(&userDatabase.Id, &userDatabase.Email, &userDatabase.PasswordHash, &userDatabase.Name, &userDatabase.Address)
 
-        if err != nil {
-            log.Printf("Exception %s ", err.Error())
+        if err2 != nil {
+            log.Printf("Exception %s ", err2.Error())
 
-            return []UserDetails{}, err
+            return []UserDetails{}, err2
         }
 
         users = append(users, mapUserDatabaseToUseridDetails(userDatabase))
     }
 
     return users, nil
-}
-
-func mapUserDatabaseToUseridDetails(userDatabase UserDatabase) UserDetails {
-    return UserDetails{
-        Id:      userDatabase.Id,
-        Email:   userDatabase.Email,
-        Name:    userDatabase.Name,
-        Address: userDatabase.Address,
-    }
 }
 
 func signup(userDatabase UserDatabase) (UserDetails, error) {
@@ -60,6 +51,15 @@ func signup(userDatabase UserDatabase) (UserDetails, error) {
     userDatabase.Id = id
 
     return mapUserDatabaseToUseridDetails(userDatabase), nil
+}
+
+func mapUserDatabaseToUseridDetails(userDatabase UserDatabase) UserDetails {
+    return UserDetails{
+        Id:      userDatabase.Id,
+        Email:   userDatabase.Email,
+        Name:    userDatabase.Name,
+        Address: userDatabase.Address,
+    }
 }
 
 func doesExistUser(email string) bool {

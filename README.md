@@ -40,6 +40,7 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.6.7` `UserRepository` move code around - better organized and renaming
 - [x] `v0.6.6` Implemented a method which check does user with an email exists
 - [x] `v0.6.5` Postman added environment - parametrized requests
 - [x] `v0.6.4` Basic Auth - parameters as constants
@@ -71,8 +72,8 @@ For testing open Postman and import endpoints.
 
 ### Backlog (Todo list)
 
-- [ ] Postman export - collection and environment variables to a repository
 - [ ] User login
+- [ ] Postman export - collection and environment variables to a repository
 - [ ] User creates a new cart
 - [ ] Add admin for create, delete, and update products
 - [ ] Admin/Products delete
