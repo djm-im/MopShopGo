@@ -2,6 +2,7 @@ package users
 
 import (
     "MopShopGo/repository"
+    "errors"
     "log"
 )
 
@@ -83,4 +84,28 @@ func doesExistUser(email string) bool {
     }
 
     return false
+}
+
+func getUserHash(email string) (string, error) {
+    result, err := repository.
+        GetMysql().
+        Query(""+
+            "SELECT passwordHash "+
+            "FROM users "+
+            "WHERE email = ?",
+            email)
+
+    if err != nil {
+        log.Printf("User reading error %s.", err.Error())
+        return "", err
+    }
+
+    if result.Next() {
+        var passwordHash string
+        _ = result.Scan(&passwordHash)
+
+        return passwordHash, nil
+    }
+
+    return "", errors.New("cannot find hash for email " + email)
 }

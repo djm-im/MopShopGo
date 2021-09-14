@@ -28,6 +28,7 @@ For testing open Postman and import endpoints.
 * Better logging - more log messages, and more details.
 * Add SwaggerUI for endpoints 
 * Split "Service layer" (`*Service.go` files) - it's a combination of Controller and Service layer.
+* Store session tokens into a mem-cache database
 
 #### Build and run the project
 
@@ -40,6 +41,12 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.7` User login
+    - Use session token (store it into Cookies)
+    - Create Session service and repository
+    - SessionRepository is in-memory "database" (more precisely, it is a map)
+        - That means, after restart the server each session will be lost
+        - Therefore, user have again to create a session token
 - [x] `v0.6.7` `UserRepository` move code around - better organized and renaming
 - [x] `v0.6.6` Implemented a method which check does user with an email exists
 - [x] `v0.6.5` Postman added environment - parametrized requests
@@ -50,7 +57,7 @@ For testing open Postman and import endpoints.
     - Added constants with DB credentials (still hard-coded values)
 - [x] `v0.6.1` DRY Repository
     - Make connection to database through a single point
-- [x] `v0.6` User signup  
+- [x] `v0.6` User signup
     - Implemented user signup endpoint
     - Admin panel - fetch all users
 - [x] `v0.5.2` Admin added response for Unauthorized requests
@@ -72,9 +79,9 @@ For testing open Postman and import endpoints.
 
 ### Backlog (Todo list)
 
-- [ ] User login
-- [ ] Postman export - collection and environment variables to a repository
 - [ ] User creates a new cart
+- [ ] Store session tokens in a more persistent database like MySQL / mem-cache alternative
+- [ ] Postman export - collection and environment variables to a repository
 - [ ] Add admin for create, delete, and update products
 - [ ] Admin/Products delete
 - [ ] Admin/Products update
