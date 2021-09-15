@@ -2,6 +2,7 @@ package sessions
 
 import (
     "MopShopGo/repository"
+    "errors"
 )
 
 func saveSessionToken(sessionToken SessionsToken) SessionsToken {
@@ -20,4 +21,21 @@ func saveSessionToken(sessionToken SessionsToken) SessionsToken {
     }
 
     return sessionToken
+}
+
+func getSessionToken(token string) (SessionsToken, error) {
+    result, _ := repository.GetMysql().Query(""+
+        "SELECT * "+
+        "FROM sessions "+
+        "WHERE sessionToken = ?", token,
+    )
+
+    var sessionToken SessionsToken
+    if result.Next() {
+        result.Scan(&sessionToken.Email, &sessionToken.Token, &sessionToken.Created, &sessionToken.Expire)
+
+        return sessionToken, nil
+    }
+
+    return SessionsToken{}, errors.New("Canot find session token.")
 }

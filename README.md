@@ -2,7 +2,8 @@
 
 MoP Shop implementation in GoLang.
 
-Important Note: I don't have a prio
+Important Note: I don't have a prior GoLang professional experience
+
 ### Important notes and assumptions
 
 Before starting this project, it is needed to run the MySQL container.
@@ -16,6 +17,7 @@ For testing open Postman and import endpoints.
   This style is terrible for leas two reasons—the first, security.  
   The second reason, it is not flexible and configurable.  
   This trade-off was made for the sake of faster development.
+* Carts have a simple live-cycle. No abandoned carts (endless life).
 * The field `Product.Name` is chosen to be a unique value.  
   However, a better approach is to have a product code and set it as a unique value.  
   This trade-off is made because of simplicity.
@@ -29,6 +31,8 @@ For testing open Postman and import endpoints.
 * Add SwaggerUI for endpoints
 * Split "Service layer" (`*Service.go` files) - it's a combination of Controller and Service layer.
 * Store session tokens into a mem-cache database
+* Add anonymous carts - when a user is not logged in, enable to create a cart and continue shopping.
+* Use JWT tokens.
 
 #### Build and run the project
 
@@ -41,6 +45,11 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.8` Cart Items
+    - Added adding cart items
+    - Improvements group cart items to cart with pre-calculated total price
+- [x] `v0.7.1` Store session tokens in MySql database
+    - This is a temporary solution
 - [x] `v0.7` User login
     - Use session token (store it into Cookies)
     - Create Session service and repository
@@ -79,7 +88,11 @@ For testing open Postman and import endpoints.
 
 ### Backlog (Todo list)
 
-- [ ] User creates a new cart
+- [ ] Purchase items
+- [ ] Check token validity - SessionsService
+- [ ] `CartsService` split it into Controller and Service
+- [ ] Carts & quantity: should we replace the path variable with a query parameter
+- [ ] Add Carts (class/table) to group `CartItems`
 - [ ] Store session tokens in a more persistent database like MySQL / mem-cache alternative
 - [ ] Postman export - collection and environment variables to a repository
 - [ ] Better error handling in `SessionsRepository.saveSessionToken()`

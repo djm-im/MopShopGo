@@ -36,9 +36,10 @@ func main() {
     router.HandleFunc("/products/get/{productId}", products.GetProduct).Methods("GET")
 
     // cart
-    router.HandleFunc("/carts/get/{userId}", carts.GetCart).Methods("GET")
-    router.HandleFunc("/carts/add/product/{productId}", carts.AddProduct).Methods("PATCH")
-    router.HandleFunc("/carts/remove/product/{productId}", carts.RemoveProduct).Methods("PATCH")
+    router.HandleFunc("/carts/user/{userId}/get", carts.GetCart).Methods("GET")
+    router.HandleFunc("/carts/user/{userId}/add/product/{productId}/quantity/{quantity}", carts.AddProduct).Methods("PATCH")
+    router.HandleFunc("/carts/user/{userId}remove/product/{productId}", carts.RemoveProduct).Methods("PATCH")
+    router.HandleFunc("/carts/user/{userId}/delete", carts.DeleteCart).Methods("DELETE")
 
     // Purchase
     router.HandleFunc("/purchases/buy/user/{userId}/cart/{cartId}", purchases.Buy).Methods("POST")
