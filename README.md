@@ -26,7 +26,7 @@ For testing open Postman and import endpoints.
 * Add search of products by different fields
 * Add roles for users - Admin and User (customer)
 * Better logging - more log messages, and more details.
-* Add SwaggerUI for endpoints 
+* Add SwaggerUI for endpoints
 * Split "Service layer" (`*Service.go` files) - it's a combination of Controller and Service layer.
 * Store session tokens into a mem-cache database
 
@@ -82,6 +82,7 @@ For testing open Postman and import endpoints.
 - [ ] User creates a new cart
 - [ ] Store session tokens in a more persistent database like MySQL / mem-cache alternative
 - [ ] Postman export - collection and environment variables to a repository
+- [ ] Better error handling in `SessionsRepository.saveSessionToken()`
 - [ ] Add admin for create, delete, and update products
 - [ ] Admin/Products delete
 - [ ] Admin/Products update

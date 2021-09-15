@@ -2,7 +2,7 @@ package sessions
 
 import "time"
 
-type SessionToken struct {
+type SessionsToken struct {
     Email   string
     Token   string
     Created time.Time
