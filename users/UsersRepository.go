@@ -3,6 +3,7 @@ package users
 import (
     "MopShopGo/repository"
     "errors"
+    "fmt"
     "log"
 )
 
@@ -33,6 +34,35 @@ func getAllUsers() ([]UserDetails, error) {
     }
 
     return users, nil
+}
+
+func getUser(userId int) (UserDetails, error) {
+    result, err1 := repository.GetMysql().Query(""+
+        "SELECT * "+
+        "FROM users "+
+        "WHERE id = ?", userId)
+    defer result.Close()
+
+    if err1 != nil {
+        log.Printf("Cannot read data from database. %s", err1.Error())
+
+        return UserDetails{}, err1
+    }
+
+    if result.Next() {
+        var userDatabase UserDatabase
+        err2 := result.Scan(&userDatabase.Id, &userDatabase.Email, &userDatabase.PasswordHash, &userDatabase.Name, &userDatabase.Address)
+
+        if err2 != nil {
+            log.Printf("Exception %s ", err2.Error())
+
+            return UserDetails{}, err2
+        }
+
+        return mapUserDatabaseToUseridDetails(userDatabase), nil
+    }
+
+    return UserDetails{}, errors.New(fmt.Sprintf("Cannot find a user with id %s.", userId))
 }
 
 func signup(userDatabase UserDatabase) (UserDetails, error) {

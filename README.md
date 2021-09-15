@@ -21,6 +21,7 @@ For testing open Postman and import endpoints.
 * The field `Product.Name` is chosen to be a unique value.  
   However, a better approach is to have a product code and set it as a unique value.  
   This trade-off is made because of simplicity.
+* Payments are in USD.
 
 **Improvements**
 
@@ -45,6 +46,8 @@ For testing open Postman and import endpoints.
 
 ### Completed
 
+- [x] `v0.9` Stripe payment
+    - Send stripe payment request
 - [x] `v0.8` Cart Items
     - Added adding cart items
     - Improvements group cart items to cart with pre-calculated total price
@@ -88,7 +91,8 @@ For testing open Postman and import endpoints.
 
 ### Backlog (Todo list)
 
-- [ ] Purchase items
+- [ ] Confirm payment was successful
+- [ ] Calculate total amount
 - [ ] Check token validity - SessionsService
 - [ ] `CartsService` split it into Controller and Service
 - [ ] Carts & quantity: should we replace the path variable with a query parameter

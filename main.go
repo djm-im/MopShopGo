@@ -42,7 +42,7 @@ func main() {
     router.HandleFunc("/carts/user/{userId}/delete", carts.DeleteCart).Methods("DELETE")
 
     // Purchase
-    router.HandleFunc("/purchases/buy/user/{userId}/cart/{cartId}", purchases.Buy).Methods("POST")
+    router.HandleFunc("/purchases/buy/user/{userId}", purchases.Buy).Methods("POST")
 
     log.Fatal(http.ListenAndServe(":8000", router))
 }

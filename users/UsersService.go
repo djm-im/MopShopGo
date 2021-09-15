@@ -13,6 +13,10 @@ func GetAllUsers() ([]UserDetails, error) {
     return getAllUsers()
 }
 
+func GetUser(userId int) (UserDetails, error) {
+    return getUser(userId)
+}
+
 func Signup(response http.ResponseWriter, request *http.Request) {
     decoder := json.NewDecoder(request.Body)
 
