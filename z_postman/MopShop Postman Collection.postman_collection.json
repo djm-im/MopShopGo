@@ -1,0 +1,265 @@
+{
+    "info": {
+        "_postman_id": "1b71cec7-eab4-4799-86b6-286d747a3e49",
+        "name": "MopShop Postman Collection",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Products",
+            "item": [
+                {
+                    "name": "Get All Products",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}:{{port}}/products/all",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "port": "{{port}}",
+                            "path": [
+                                "products",
+                                "all"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Product By Id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}:{{port}}/products/get/4",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "port": "{{port}}",
+                            "path": [
+                                "products",
+                                "get",
+                                "4"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Admin",
+            "item": [
+                {
+                    "name": "Add a new product",
+                    "request": {
+                        "auth": {
+                            "type": "basic",
+                            "basic": [
+                                {
+                                    "key": "password",
+                                    "value": "{{basicAuthPass}}",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "username",
+                                    "value": "{{basicAuthUser}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Super Truck\",\n    \"price\": 9.99\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{host}}:{{port}}/admin/products/add",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "port": "{{port}}",
+                            "path": [
+                                "admin",
+                                "products",
+                                "add"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get All Users",
+                    "request": {
+                        "auth": {
+                            "type": "basic",
+                            "basic": [
+                                {
+                                    "key": "username",
+                                    "value": "{{basicAuthUser}}",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "{{basicAuthPass}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{host}}:{{port}}/admin/users",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "port": "{{port}}",
+                            "path": [
+                                "admin",
+                                "users"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Users",
+            "item": [
+                {
+                    "name": "Signup",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"customer@email.com\",\n    \"password\": \"customer\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{host}}:{{port}}/users/signup",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "port": "{{port}}",
+                            "path": [
+                                "users",
+                                "signup"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "User Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"iUser2@email.com\",\n    \"password\": \"pass\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{host}}:{{port}}/users/login",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "port": "{{port}}",
+                            "path": [
+                                "users",
+                                "login"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "CartItems",
+            "item": [
+                {
+                    "name": "Add Product",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Cookie",
+                                "value": "session_token={{sessionToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{host}}:{{port}}/carts/user/{{userId}}/add/product/{{productId}}/quantity/1",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "port": "{{port}}",
+                            "path": [
+                                "carts",
+                                "user",
+                                "{{userId}}",
+                                "add",
+                                "product",
+                                "{{productId}}",
+                                "quantity",
+                                "1"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Purchases",
+            "item": [
+                {
+                    "name": "New Request",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Cookie",
+                                "value": "session_token={{sessionToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{host}}:{{port}}/purchases/buy/user/{{userId}}",
+                            "host": [
+                                "{{host}}"
+                            ],
+                            "port": "{{port}}",
+                            "path": [
+                                "purchases",
+                                "buy",
+                                "user",
+                                "{{userId}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

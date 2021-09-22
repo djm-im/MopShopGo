@@ -4,13 +4,13 @@ MoP Shop implementation in GoLang.
 
 **Important Note**: I don't have a prior GoLang professional experience
 
-### Important notes and assumptions
+## Important notes and assumptions
 
 Before starting this project, it is needed to run the MySQL container.
 
 For testing open Postman and import endpoints.
 
-**Assumptions**
+### Assumptions
 
 * Endless supply of products. That means no limit on the number of products.
 * The project contains hard-coded values for path variables and passwords.  
@@ -23,7 +23,7 @@ For testing open Postman and import endpoints.
   This trade-off is made because of simplicity.
 * Payments are in USD.
 
-**Improvements**
+### Improvements
 
 * Database migration tool (like Java FlywayDb)
 * Add search of products by different fields
@@ -35,22 +35,34 @@ For testing open Postman and import endpoints.
 * Add anonymous carts - when a user is not logged in, enable to create a cart and continue shopping.
 * Use JWT tokens.
 
-#### Build and run the project
+## Build and run the project
 
 **Mysql**
 
 To run MySQL container go to project home directory
 
 ```bash
-cd ~/MopShopGo
+cd .../MopShopGo # go to the project directory
 mkdir -p z_data/data
 docker-compose up
 ```
 
+On starting the MySQL container (the first time) it creates MySQL schema and imports some predefined values. For more
+details see files `.../z_mysql/backup/init.sql` and `.../z_mysql/backup/init_data.sql`.
+
+For table users there is inserted a default customer.
+
+```text
+    email:      customer@email.com
+    password:   customer
+```
+
 **Go Project**
 
+To run the Go project
+
 ```bash
-cd ~/MopShopGo
+cd .../MopShopGo # go to the project directory
 go get .
 go build
 go test
@@ -61,13 +73,14 @@ go run main.go
 
 Hardcoded value for a user
 
-```text
-    email:      customer@email.com
-    password:   customer
-```
+For testing endpoints form Postman import files from project.
+`.../z_postman/MopShop Postman Collection.postman_collection.json` and `.../z_postman/MopShop.postman_environment.json`.
+The files contain collection of endpoints and variables which are used as variables in the collection of endpoints.
 
-### Completed
+## Completed
 
+- [x] `v0.11` Postman endpoints
+    - Added Postman collection and postman variables
 - [x] `v0.10` Added MySQL `docker-compose.yml` file
     - Added running database from local
     - Added `init.sql` a script to create schema
@@ -115,9 +128,9 @@ Hardcoded value for a user
     - Git initialize
     - Git ignore: `.idea` (IDE dir), and `MopShopGo` (binary fine)
 
-### Backlog (Todo list)
+## Backlog (Todo list)
 
-- [x] Add MySql Docker container
+- [x] Postman export - collection and environment variables to a repository
 - [ ] Confirm payment was successful
 - [ ] Calculate total amount
 - [ ] Check token validity - SessionsService
@@ -125,16 +138,17 @@ Hardcoded value for a user
 - [ ] Carts & quantity: should we replace the path variable with a query parameter
 - [ ] Add Carts (class/table) to group `CartItems`
 - [ ] Store session tokens in a more persistent database like MySQL / mem-cache alternative
-- [ ] Postman export - collection and environment variables to a repository
 - [ ] Better error handling in `SessionsRepository.saveSessionToken()`
 - [ ] Add admin for create, delete, and update products
 - [ ] Admin/Products delete
 - [ ] Admin/Products update
 - [ ] Admin/Products enable image upload
 - [ ] Products, add a new product - price have to be greater than zero
-- [ ] Admin/Products when insert a new product chek is name a unique value (currently returns MySQL `Error 1062: Duplicate entry`)
-- [ ] Add link to MySql container repository
+- [ ] Admin/Products when insert a new product chek is name a unique value (currently returns
+  MySQL `Error 1062: Duplicate entry`)
 - [ ] Add tests (unit and integration tests)
 - [ ] Move the project into a Docker container
+- [ ] MySQL don't use the root account for connections with database
+- [ ] Check English wording and style
 
-### Project Description 
+## Project Description 
