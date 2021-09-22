@@ -2,3 +2,6 @@
 *.iml
 
 MopShopGo
+
+# Ignore MySQL data from Docker
+z_data

@@ -2,7 +2,7 @@
 
 MoP Shop implementation in GoLang.
 
-Important Note: I don't have a prior GoLang professional experience
+**Important Note**: I don't have a prior GoLang professional experience
 
 ### Important notes and assumptions
 
@@ -14,7 +14,7 @@ For testing open Postman and import endpoints.
 
 * Endless supply of products. That means no limit on the number of products.
 * The project contains hard-coded values for path variables and passwords.  
-  This style is terrible for leas two reasons—the first, security.  
+  This style is terrible for leas two reasons — the first, security.  
   The second reason, it is not flexible and configurable.  
   This trade-off was made for the sake of faster development.
 * Carts have a simple live-cycle. No abandoned carts (endless life).
@@ -37,15 +37,41 @@ For testing open Postman and import endpoints.
 
 #### Build and run the project
 
+**Mysql**
+
+To run MySQL container go to project home directory
+
 ```bash
- go get .
- go build
- go test
- go run main.go
+cd ~/MopShopGo
+mkdir -p z_data/data
+docker-compose up
+```
+
+**Go Project**
+
+```bash
+cd ~/MopShopGo
+go get .
+go build
+go test
+go run main.go
+```
+
+**Postman**
+
+Hardcoded value for a user
+
+```text
+    email:      customer@email.com
+    password:   customer
 ```
 
 ### Completed
 
+- [x] `v0.10` Added MySQL `docker-compose.yml` file
+    - Added running database from local
+    - Added `init.sql` a script to create schema
+    - Added `init_data.sql` a script to insert data into schema
 - [x] `v0.9` Stripe payment
     - Send stripe payment request
 - [x] `v0.8` Cart Items
@@ -91,6 +117,7 @@ For testing open Postman and import endpoints.
 
 ### Backlog (Todo list)
 
+- [x] Add MySql Docker container
 - [ ] Confirm payment was successful
 - [ ] Calculate total amount
 - [ ] Check token validity - SessionsService
@@ -105,9 +132,7 @@ For testing open Postman and import endpoints.
 - [ ] Admin/Products update
 - [ ] Admin/Products enable image upload
 - [ ] Products, add a new product - price have to be greater than zero
-- [ ] Admin/Products when insert a new product chek is name a unique value (currently returns
-  MySQL `Error 1062: Duplicate entry`)
-- [ ] Add MySql Docker container
+- [ ] Admin/Products when insert a new product chek is name a unique value (currently returns MySQL `Error 1062: Duplicate entry`)
 - [ ] Add link to MySql container repository
 - [ ] Add tests (unit and integration tests)
 - [ ] Move the project into a Docker container
